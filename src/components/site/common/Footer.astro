@@ -1,0 +1,53 @@
+---
+const columns = [
+  {
+    title: 'Product',
+    rows: [
+      { title: 'Features', url: '/#features' },
+      { title: 'Pricing', url: '/#pricing' },
+    ],
+  },
+  {
+    title: 'Support',
+    rows: [
+      { title: 'Documentation', url: '#' },
+      { title: 'Guides', url: '#' },
+    ],
+  },
+  {
+    title: 'Company',
+    rows: [
+      { title: 'About', url: '#' },
+      { title: 'Blog', url: '/blog' },
+    ],
+  },
+  {
+    title: 'Legal',
+    rows: [
+      { title: 'Privacy', url: '#' },
+      { title: 'Terms', url: '#' },
+    ],
+  },
+]
+---
+
+<div class="max-w-7xl px-6 pb-8 mx-auto mt-20">
+  <footer class="py-20 border-t grid grid-cols-2 lg:grid-cols-4 gap-8">
+    {
+      columns.map((column) => (
+        <div>
+          <h3 class="pb-5 font-semibold border-b">{column.title}</h3>
+          <ul class="mt-6 space-y-4">
+            {column.rows.map((row) => (
+              <li>
+                <a href={row.url} class="leading-6 dark:hover:text-white">
+                  {row.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </footer>
+</div>

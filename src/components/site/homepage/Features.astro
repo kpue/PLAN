@@ -1,0 +1,65 @@
+---
+import Person from '@components/site/homepage/FeatureIcons/Person.astro'
+import Team from '@components/site/homepage/FeatureIcons/Team.astro'
+import Fast from '@components/site/homepage/FeatureIcons/Fast.astro'
+import Multiplayer from '@components/site/homepage/FeatureIcons/Multiplayer.astro'
+
+const features = [
+  {
+    title: 'Solo projects',
+    description:
+      'The solo plan is perfect for freelancers working on projects on their own',
+    icon: Person,
+  },
+  {
+    title: 'Team projects',
+    description:
+      'The team plan is perfect for small teams working together on multiple projects',
+    icon: Team,
+  },
+  {
+    title: 'Fast and easy',
+    description: 'No more overcomplicated project management',
+    icon: Fast,
+  },
+  {
+    title: 'Multiplayer mode',
+    description: 'Work on projects with your colleagues',
+    icon: Multiplayer,
+  },
+]
+---
+
+<a id="features"></a>
+
+<div class="px-6 mx-auto mt-32 max-w-7xl sm:mt-56 lg:px-8">
+  <div class="max-w-2xl mx-auto lg:text-center">
+    <h2 class="text-xl font-semibold leading-7">Ship faster</h2>
+    <p class="mt-2 text-3xl font-bold tracking-tight sm:text-5xl">
+      Manage your projects more productively
+    </p>
+    <p class="mt-6 text-lg leading-8">
+      With its simple interface and useful features, PLAN is the best way to
+      manage your projects.
+    </p>
+  </div>
+  <div class="max-w-2xl mx-auto mt-16 sm:mt-20 lg:mt-24 lg:max-w-4xl">
+    <dl
+      class="max-w-xl grid grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
+    >
+      {
+        features.map((feature) => (
+          <div class="relative pl-16">
+            <dt class="text-base font-semibold leading-7">
+              <div class="absolute top-0 left-0 flex items-center justify-center w-10 h-10 bg-blue-600 rounded-lg text-white">
+                <feature.icon />
+              </div>
+              {feature.title}
+            </dt>
+            <dd class="mt-2 text-base leading-7">{feature.description}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</div>

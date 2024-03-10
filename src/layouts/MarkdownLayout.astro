@@ -1,0 +1,22 @@
+---
+import LayoutSite from './LayoutSite.astro'
+
+const { title, date } = Astro.props
+
+const formattedDate = (date: string) => {
+  new Date(date).toLocaleDateString('en-us', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
+---
+
+<LayoutSite title={title}>
+  <div id="markdown" class="py-10 px-6 mx-auto max-w-7xl space-y-10">
+    <h1>{title}</h1>
+    <p>{formattedDate(date)}</p>
+    <hr class="my-4 border-zinc-500" />
+    <slot />
+  </div>
+</LayoutSite>

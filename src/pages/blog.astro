@@ -1,0 +1,26 @@
+---
+import LayoutSite from '../layouts/LayoutSite.astro'
+
+import { getCollection } from 'astro:content'
+let posts = await getCollection('blog')
+
+posts = posts.sort(
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+)
+---
+
+<LayoutSite title={'Blog'}>
+  <ul class="py-10 px-6 mx-auto max-w-7xl space-y-10">
+    {
+      posts.map((post) => {
+        return (
+          <li class="p-8 border rounded-lg">
+            <a href={`/blog/${post.slug}`} class="text-2xl font-bold">
+              {post.data.title}
+            </a>
+          </li>
+        )
+      })
+    }
+  </ul>
+</LayoutSite>

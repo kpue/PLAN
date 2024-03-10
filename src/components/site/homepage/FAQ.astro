@@ -1,0 +1,30 @@
+---
+const faqs = [
+  {
+    question: 'Is the personal account really free?',
+    answer:
+      "Yes! We don’t require a credit card to sign up, it's completely free.",
+  },
+  {
+    question: 'Can I use PLAN for my company?',
+    answer: 'Absolutely! PLAN is perfect for companies of all sizes.',
+  },
+]
+---
+
+<div class="max-w-2xl px-6 mx-auto mt-20 text-center lg:max-w-7xl lg:px-8">
+  <p class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
+    Frequently asked questions
+  </p>
+
+  {
+    faqs.map((faq) => (
+      <div class="mt-10 space-y-8">
+        <div>
+          <h2 class="text-lg font-bold">{faq.question}</h2>
+          <p class="mt-3">{faq.answer}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

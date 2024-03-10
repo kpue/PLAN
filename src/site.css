@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    #markdown {
+        @apply text-black dark:text-white;
+    }
+    #markdown h1 {
+        @apply text-4xl font-extrabold tracking-tight mt-0;
+    }
+    #markdown h2 {
+        @apply text-3xl font-extrabold tracking-tight mt-10;
+    }
+    #markdown h3 {
+        @apply text-2xl font-extrabold tracking-tight mt-10;
+    }
+    #markdown h4 {
+        @apply mt-4 text-gray-500 mb-4;
+    }
+
+    #markdown p {
+        @apply mt-4 text-gray-500 mb-4;
+    }
+
+    #markdown ul,
+    #markdown ol {
+        @apply mt-2 list-inside;
+    }
+    #markdown ul {
+        @apply list-disc;
+    }
+    #markdown ol {
+        @apply list-decimal;
+    }
+    #markdown li {
+        @apply pt-2;
+    }
+
+    #markdown img {
+        @apply dark:invert;
+    }
+}
