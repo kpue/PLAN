@@ -1,0 +1,85 @@
+---
+const { project } = Astro.props
+
+export function projectStatus(status: string) {
+  switch (status) {
+    case 'started':
+      return ' w-2/12 '
+    case 'in progress':
+      return ' w-6/12 '
+    case 'ongoing':
+      return ' w-full bg-blue-600 rounded-br-lg '
+    case 'archived':
+      return ' w-full bg-zinc-400 rounded-br-lg '
+    case 'on hold':
+      return ' w-full bg-stripes-darkgray-yellow rounded-br-lg '
+    case 'almost finished':
+      return ' w-10/12 '
+    case 'done':
+      return ' w-full bg-green-500 rounded-br-lg '
+    case 'not started':
+      return ' w-full bg-zinc-400 rounded-br-lg '
+  }
+}
+---
+
+<style>
+  .bg-stripes-darkgray-yellow {
+    background-image: repeating-linear-gradient(
+      45deg,
+      #1f2937,
+      #1f2937 25px,
+      #f6e711 25px,
+      #f6e711 50px
+    );
+  }
+
+  .dashed-border-top {
+    position: relative;
+    background-image: repeating-linear-gradient(
+      to right,
+      currentColor,
+      currentColor 7px,
+      transparent 7px,
+      transparent 20px
+    );
+    background-size: 100% 2px;
+    background-position: top;
+    background-repeat: no-repeat;
+    border-top: 1px solid transparent;
+  }
+</style>
+
+<li
+  class="text-zinc-800 dark:text-white border dark:border-none rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 hover:dark:bg-zinc-700"
+>
+  <a href={`/app/project/${project.id}`}>
+    <div class="flex justify-center w-full p-6">
+      <h3 class="text-lg font-bold truncate">
+        {project.name}
+      </h3>
+    </div>
+
+    <div
+      class={`bg-zinc-100 dark:bg-zinc-800 rounded-b-lg text-center border-t ${
+        project.status !== 'not started' &&
+        project.status !== 'ongoing' &&
+        project.status !== 'on hold' &&
+        project.status !== 'done' &&
+        'border-t-blue-600 dashed-border-top'
+      }`}
+    >
+      <div
+        class="inline-block px-1 mt-[0.35rem] text-sm text-zinc-900 bg-zinc-100 rounded-md"
+      >
+        {project.status}
+      </div>
+      <div
+        class={`${projectStatus(
+          project.status
+        )} rounded-bl-lg bg-blue-600 py-1 text-center -mt-7 pb-8`}
+      >
+      </div>
+    </div>
+  </a>
+</li>

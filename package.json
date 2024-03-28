@@ -7,13 +7,24 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pocketbase-typegen": "npx pocketbase-typegen --db ../pocketbase/pb_data/data.db --out ./src/data/pocketbase-types.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.6",
+    "@astrojs/node": "^8.2.3",
     "@astrojs/tailwind": "^5.1.0",
+    "@fontsource/m-plus-rounded-1c": "^5.0.12",
+    "@types/alpinejs": "^3.13.7",
+    "alpinejs": "^3.13.7",
     "astro": "^4.4.6",
+    "dotenv": "^16.4.5",
+    "htmx.org": "^1.9.10",
+    "pocketbase": "^0.21.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.26"
   }
 }

@@ -1,0 +1,15 @@
+---
+export const partial = true
+
+import { addProject } from '@data/pocketbase'
+
+if (Astro.request.method == 'POST') {
+  const formData = await Astro.request.formData()
+
+  const project_name = formData.get('project_name')?.toString() || ''
+
+  const project = await addProject(project_name)
+
+  Astro.response.headers.set('HX-Redirect', '/app/dashboard')
+}
+---

@@ -1,0 +1,14 @@
+---
+const { project_id } = Astro.props
+---
+
+<div class="w-full mx-auto text-center">
+  <button
+    type="button"
+    class="inline-flex items-center justify-center px-6 py-2 text-sm font-bold text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 select-none"
+    hx-get=`/app/modals/project/${project_id}/task/new`
+    hx-target="dialog"
+  >
+    Add new
+  </button>
+</div>
