@@ -3,8 +3,9 @@ import LayoutApp from '@layouts/LayoutApp.astro'
 import ButtonAddNewTask from '@components/app/tasks/ButtonAddNewTask.astro'
 import HamburgerMenuButton from '@components/app/HamburgerMenuButton.astro'
 import ProjectStatus from '@components/app/projects/ProjectStatus.astro'
+import TasksList from '@components/app/tasks/TasksList.astro'
 
-import { getProject, getTasks } from '@data/pocketbase'
+import { getProject } from '@data/pocketbase'
 
 const { project_id = '' } = Astro.params
 
@@ -13,8 +14,6 @@ const project = await getProject(project_id)
 if (!project) {
   return Astro.redirect('/app/dashboard')
 }
-
-const tasks = await getTasks(project_id)
 ---
 
 <LayoutApp title={project.name}>
@@ -25,7 +24,9 @@ const tasks = await getTasks(project_id)
       <div class="sm:hidden">
         <HamburgerMenuButton />
       </div>
-      {project.name}
+      <span hx-get=`/app/modals/project/${project.id}/edit` hx-target="dialog"
+        >{project.name}</span
+      >
     </div>
 
     <div class="flex items-center justify-between mx-auto max-w-7xl">
@@ -52,12 +53,8 @@ const tasks = await getTasks(project_id)
           Tasks to do
         </h2>
 
-        <div class="text-zinc-900 dark:text-white">
-          {tasks.length === 0 && <p class="text-center pb-10">Nothing yet</p>}
-
-          <ul class="space-y-6">
-            {tasks.map((task) => <li>{task.text}</li>)}
-          </ul>
+        <div id="tasks-todo">
+          <TasksList project_id={project_id} />
         </div>
 
         <ButtonAddNewTask project_id={project_id} />
