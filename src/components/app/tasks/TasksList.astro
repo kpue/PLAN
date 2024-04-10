@@ -1,12 +1,12 @@
 ---
-import DeleteTaskButton from './DeleteTaskButton.astro'
+import DeleteTaskButton from '@components/app/tasks/DeleteTaskButton.astro'
 import CompleteTaskButton from '@components/app/tasks/CompleteTaskButton.astro'
 
 import { getTasks } from '@data/pocketbase'
 
-const { project_id = '' } = Astro.params
+const { project_id, done } = Astro.props
 
-const tasks = await getTasks(project_id)
+const tasks = await getTasks({ project_id, done })
 ---
 
 {

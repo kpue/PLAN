@@ -46,10 +46,18 @@ export async function deleteProject(id: string) {
     await pb.collection('projects').delete(id)
 }
 
-export async function getTasks(project_id: string) {
+export async function getTasks({
+    project_id = null,
+    done = false,
+}) {
     const options = {
-        filter: `project = "${project_id}"`,
+        filter: '',
     }
+
+    let filter = `completed = ${done}`
+    filter += ` && project = "${project_id}"`
+
+    options.filter = filter
 
     const tasks = await pb
     .collection('tasks')

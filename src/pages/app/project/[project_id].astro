@@ -54,11 +54,26 @@ if (!project) {
         </h2>
 
         <div id="tasks-todo">
-          <TasksList project_id={project_id} />
+          <TasksList done={false} project_id={project_id} />
         </div>
 
         <ButtonAddNewTask project_id={project_id} />
       </div>
+
+      <div
+        class="p-10 text-white rounded-lg shadow bg-zinc-100 dark:bg-zinc-800"
+      >
+        <h2
+          class="pb-10 text-xl font-black text-center uppercase text-zinc-800 dark:text-white"
+        >
+          Tasks already done
+        </h2>
+
+        <div id="tasks-done">
+          <TasksList done={true} project_id={project_id} />
+        </div>
+      </div>
+
       <div class="p-10 text-white rounded-lg shadow bg-zinc-800">
         <h2 class="pb-0 text-xl font-black text-center uppercase font-rounded">
           Danger Zone
