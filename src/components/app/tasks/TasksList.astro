@@ -2,6 +2,7 @@
 import DeleteTaskButton from "@components/app/tasks/DeleteTaskButton.astro"
 import CompleteTaskButton from "@components/app/tasks/CompleteTaskButton.astro"
 import StarTaskButton from "@components/app/tasks/StarTaskButton.astro"
+import TaskText from "@components/app/tasks/TaskText.astro"
 
 import { getTasks, getStarredTasks } from "@data/pocketbase"
 
@@ -32,7 +33,7 @@ if (starred) {
           <div>
             <StarTaskButton task={task} />
           </div>
-          <div class="flex-1 text-zinc-900 dark:text-white">{task.text}</div>
+          <TaskText task={task} />
 
           {starred ? (
             <div>
