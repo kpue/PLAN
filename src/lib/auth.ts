@@ -82,3 +82,7 @@ export function setCookieAndRedirectToDashboard() {
         },
     })
 }
+
+export async function sendResetPasswordLink(email: string) {
+    await pb.collection("users").requestPasswordReset(email)
+}
