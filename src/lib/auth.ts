@@ -1,4 +1,5 @@
 import {pb} from '@src/data/pocketbase'
+import type {UsersResponse} from '@src/data/pocketbase-types'
 
 export const isValidEmail = (email: string) => {
     if(typeof email !== 'string') return false
@@ -85,4 +86,26 @@ export function setCookieAndRedirectToDashboard() {
 
 export async function sendResetPasswordLink(email: string) {
     await pb.collection("users").requestPasswordReset(email)
+}
+
+export async function getUserObjectFromDb(user_id: string) {
+    const user: UsersResponse = await pb.collection("users").getOne(user_id)
+    return user
+}
+
+export function getCurrentUserId() {
+    return pb.authStore.model?.id
+}
+
+export function getCurrentUserEmail() {
+    return pb.authStore.model?.email
+}
+
+export async function isUserVerified() {
+    const user = await getUserObjectFromDb(getCurrentUserId())
+    return user.verified
+}
+
+export async function sendVerificationEmail(email: string) {
+    await pb.collection("users").requestVerification(email)
 }

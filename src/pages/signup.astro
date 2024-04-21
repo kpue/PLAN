@@ -7,6 +7,7 @@ import {
   loginUser,
   setCookieAndRedirectToDashboard,
   isLoggedIn,
+  sendVerificationEmail,
 } from "@lib/auth"
 
 if (await isLoggedIn(Astro.request)) {
@@ -30,6 +31,8 @@ if (Astro.request.method === "POST") {
       try {
         await createUser(email, password)
         await loginUser(email, password)
+        await sendVerificationEmail(email)
+
         return setCookieAndRedirectToDashboard()
       } catch (e) {
         error = "Could not create user"
