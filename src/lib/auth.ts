@@ -109,3 +109,24 @@ export async function isUserVerified() {
 export async function sendVerificationEmail(email: string) {
     await pb.collection("users").requestVerification(email)
 }
+
+export async function processTurnstile(cf_turnstile_response: string) {
+    const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+
+    const requestBody = new URLSearchParams({
+        secret: import.meta.env.TURNSTILE_SITE_SECRET || process.env.TURNSTILE_SITE_SECRET,
+        response: cf_turnstile_response
+    })
+    
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: requestBody.toString()
+    })
+
+    const data = await response.json()
+
+    return data.success
+}
