@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="27.070202mm"
+   height="8.2076015mm"
+   viewBox="0 0 27.070202 8.2076015"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <rect
+       x="6.5958514"
+       y="9.8937769"
+       width="303.40918"
+       height="108.83155"
+       id="rect1" />
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-1.5386801,-1.0737955)">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-1.3088643,-3.6357341)"
+       id="text1"
+       style="white-space:pre;shape-inside:url(#rect1);fill:#000000"><tspan
+         x="6.5957031"
+         y="48.820654"
+         id="tspan3"><tspan
+           style="font-size:42.6667px;-inkscape-font-specification:'sans-serif, Normal'"
+           id="tspan2">PLAN</tspan></tspan></text>
+  </g>
+</svg>
