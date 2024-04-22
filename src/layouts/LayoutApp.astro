@@ -1,8 +1,8 @@
 ---
-import Sidebar from '@components/app/Sidebar.astro'
-import '@src/app.css'
-import '@fontsource/m-plus-rounded-1c'
-import '@fontsource/m-plus-rounded-1c/800.css'
+import Sidebar from "@components/app/Sidebar.astro"
+import "@src/app.css"
+import "@fontsource/m-plus-rounded-1c"
+import "@fontsource/m-plus-rounded-1c/800.css"
 
 const { title } = Astro.props
 ---
@@ -14,10 +14,21 @@ const { title } = Astro.props
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
     <meta name="description" content="A project managment tool" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+      default-src 'self' data:;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval';
+      connect-src 'self';
+      img-src 'self' data:;
+      style-src 'self' 'unsafe-inline';
+      object-src 'none';
+      "
+    />
 
     <script>
-      import * as htmx from 'htmx.org'
-      import Alpine from 'alpinejs'
+      import * as htmx from "htmx.org"
+      import Alpine from "alpinejs"
 
       declare global {
         interface Window {

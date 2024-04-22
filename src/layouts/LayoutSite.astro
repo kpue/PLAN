@@ -1,10 +1,10 @@
 ---
-import TopBar from '@components/site/common/TopBar.astro'
-import Footer from '@components/site/common/Footer.astro'
+import TopBar from "@components/site/common/TopBar.astro"
+import Footer from "@components/site/common/Footer.astro"
 
-import '@src/site.css'
+import "@src/site.css"
 
-const { title = 'PLAN' } = Astro.props
+const { title = "PLAN" } = Astro.props
 ---
 
 <html lang="en">
@@ -12,13 +12,25 @@ const { title = 'PLAN' } = Astro.props
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
-  </head>
-  <body class="dark:bg-black dark:text-white">
-    <div class="max-w-5xl px-4 py-4 mx-auto">
-      <TopBar />
-      <slot />
-      <Footer />
-    </div>
-  </body>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+      default-src 'self' data:;
+      script-src 'self' https://challenges.cloudflare.com;
+      style-src 'self' 'unsafe-inline';
+      frame-src https://challenges.cloudflare.com;
+      connect-src 'self';
+      img-src 'self' data:;
+      object-src 'none';
+      "
+    />
+    <title></title>{title}</head
+  >
 </html>
+<body class="dark:bg-black dark:text-white">
+  <div class="max-w-5xl px-4 py-4 mx-auto">
+    <TopBar />
+    <slot />
+    <Footer />
+  </div>
+</body>
