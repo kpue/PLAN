@@ -10,7 +10,6 @@ import {
   sendVerificationEmail,
   processTurnstile,
 } from "@lib/auth"
-import { isTransitionBeforePreparationEvent } from "astro:transitions/client"
 
 if (await isLoggedIn(Astro.request)) {
   return Astro.redirect("/app/dashboard")

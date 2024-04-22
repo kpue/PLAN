@@ -44,7 +44,7 @@ const projects = await getProjects()
     </a>
     <div>
       {
-        projects.map((project, index) => {
+        projects.map((project, _index) => {
           return (
             <a
               href={`/app/project/${project.id}`}
