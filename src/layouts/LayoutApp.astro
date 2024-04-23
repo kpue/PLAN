@@ -20,7 +20,7 @@ const { title } = Astro.props
       default-src 'self' data:;
       script-src 'self' 'unsafe-inline' 'unsafe-eval';
       connect-src 'self';
-      img-src 'self' data:;
+      img-src 'self' data: 127.0.0.1:8090;
       style-src 'self' 'unsafe-inline';
       object-src 'none';
       "
