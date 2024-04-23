@@ -13,5 +13,8 @@ export default defineConfig({
   }),
   redirects: {
     "/app": "/app/dashboard",
+  },
+  server: {
+    open: "/login"
   }
 });
