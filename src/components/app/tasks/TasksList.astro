@@ -23,10 +23,18 @@ if (starred) {
   )
 }
 
-<ul class="space-y-6 mb-10">
+<ul class="space-y-6 mb-10" x-data="dragAndDropIntoTask()">
   {
     tasks.map((task) => (
-      <li>
+      <li
+        @dragover.prevent="dragover = true"
+        @dragover.prevent="dragover = false"
+        @drop.prevent="drop($event)"
+        hx-put={`/app/api/project/${task.project}/task/${task.id}`}
+        hx-encoding="multipart/form-data"
+        hx-trigger="none"
+        data-images-number={task.images.length}
+      >
         <div class="flex justify-between gap-x-4">
           <div class="align-top">
             <CompleteTaskButton task={task} />

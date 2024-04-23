@@ -40,6 +40,16 @@ if (Astro.request.method === "PUT") {
     await updateTask(task_id, {
       text: formData.get("task-text") as string,
     })
+  } else if (action === "upload") {
+    try {
+      await updateTask(task_id, {
+        images: formData.getAll("images") as string[],
+      })
+    } catch (e) {
+      return new Response("Cannot upload image", {
+        status: 400,
+      })
+    }
   } else {
     return new Response("Invalid action", { status: 400 })
   }
