@@ -58,6 +58,7 @@ export async function getTasks({
 }) : Promise<TasksResponse<TexpandProject>[]> {
     const options = {
         filter: '',
+        sort: '-starred_on, created',
     }
 
     let filter = `completed = ${done}`
