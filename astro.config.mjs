@@ -16,5 +16,8 @@ export default defineConfig({
   },
   server: {
     open: "/login"
-  }
+  },
+  devToolbar: {
+    enabled: false,
+  },
 });
