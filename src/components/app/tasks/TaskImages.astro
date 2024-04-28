@@ -6,13 +6,45 @@ const images = processImages(task)
 ---
 
 <div class={images.length ? "flex flex-wrap mt-2 gap-4" : ""}>
-  {
-    images.map((image) => (
+  {images.map((image, index) => (
+  <div
+    x-data=`{ showInOverlayTask${task.id}Image${index}: false }`
+    class="inline"
+  >
+    <div
+      class="relative inline-block mb-4 mr-4 border-white rounded-xl"
+      @click=`showInOverlayTask${task.id}Image${index} = true`
+    >
       <img
-        class="inline border-4 border-white rounded-xl"
+        class="inline border-4 border-white rounded-xl object-contain"
         src={image.url}
         width="100"
       />
-    ))
-  }
+    </div>
+
+    <template x-if=`showInOverlayTask${task.id}Image${index}`>
+      <div
+        class="fixed inset-0 z-10"
+        x-on:keydown.escape.window=`showInOverlayTask${task.id}Image${index} = false`
+      >
+        <div class="min-h-screen pt-20 text-center sm:block">
+          <div
+            class="inline-block w-full max-w-3xl shadow-xl lg:max-w-4xl"
+            role="dialog"
+            @click.outside.capture=`showInOverlayTask${task.id}Image${index} = false`
+            aria-modal="true"
+            aria-labelledby="modal-headline"
+          >
+            <img
+              class="border-4 border-white rounded-xl"
+              src={image.url_larger}
+              width="800"
+              @click=`showInOverlayTask${task.id}Image${index} = false`
+            />
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+  )) }
 </div>
