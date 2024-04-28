@@ -50,6 +50,11 @@ if (Astro.request.method === "PUT") {
         status: 400,
       })
     }
+  } else if (action === "delete-image") {
+    await updateTask(task_id, {
+      //@ts-expect-error
+      "images-": formData.get("image") as string,
+    })
   } else {
     return new Response("Invalid action", { status: 400 })
   }
