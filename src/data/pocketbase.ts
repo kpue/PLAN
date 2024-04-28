@@ -169,6 +169,12 @@ export async function getTeam(id: string) {
     return team
 }
 
+export async function getTeams() {
+    const teams = await pb.collection('teams').getFullList()
+
+    return teams
+}
+
 export async function userIsTeamOwner(team_id: string) {
     const team = await getTeam(team_id)
     if(team.created_by === pb.authStore.model?.id) {

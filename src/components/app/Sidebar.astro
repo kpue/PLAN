@@ -1,8 +1,9 @@
 ---
-import { getProjects } from "@data/pocketbase"
+import { getProjects, getTeams } from "@data/pocketbase"
 import { getUserUsername } from "@lib/auth"
 
 const projects = await getProjects()
+const teams = await getTeams()
 
 const p_classes =
   "block bg-zinc-100 dark:bg-zinc-900 py-2 pl-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-800 border dark:border-0 dark:border-b border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-white"
@@ -71,6 +72,31 @@ const p_classes =
       }
     </div>
   </div>
+
+  {
+    teams.length > 0 &&
+      teams.map((team) => {
+        return (
+          <div class="mb-6 rounded-lg bg-zinc-800">
+            <a
+              href={`/app/team/${team.id}`}
+              class={
+                `${p_classes} uppercase rounded-t-lg font-black rounded-g-lg ` +
+                (Astro.url.pathname.startsWith(`/app/team/${team.id}`)
+                  ? " !bg-blue-800 font-bold "
+                  : "") +
+                "flex items-center justify-between"
+              }
+            >
+              {team.name}
+              <span class="p-1 pr-1 mr-2 text-sm font-bold bg-white border rounded-md text-zinc-800">
+                team
+              </span>
+            </a>
+          </div>
+        )
+      })
+  }
 
   <button
     class=`${p_classes} rounded-t-lg w-full text-left outline-none`
