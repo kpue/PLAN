@@ -37,6 +37,8 @@ const { title } = Astro.props
         }
       }
 
+      htmx.config.selfRequestsOnly = true
+
       window.htmx = htmx
       window.Alpine = Alpine
 
