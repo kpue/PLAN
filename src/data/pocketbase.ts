@@ -152,3 +152,13 @@ export function processImages(task: TasksResponse) {
 
     return images
 }
+
+export async function addTeam(name: string) {
+    let team = await pb.collection('teams').create({
+        name,
+        created_by: pb.authStore.model?.id,
+        status: 'inactive',
+    })
+
+    return team
+}
