@@ -175,6 +175,10 @@ export async function getTeams() {
     return teams
 }
 
+export async function deleteTeam(id: string) {
+    return await pb.collection('teams').delete(id)
+}
+
 export async function userIsTeamOwner(team_id: string) {
     const team = await getTeam(team_id)
     if(team.created_by === pb.authStore.model?.id) {
