@@ -4,6 +4,7 @@ import type {
     ProjectsResponse,
     TasksRecord,
     TasksResponse,
+    TeamsRecord,
     TypedPocketBase,
 } from '@src/data/pocketbase-types'
 
@@ -173,6 +174,10 @@ export async function getTeams() {
     const teams = await pb.collection('teams').getFullList()
 
     return teams
+}
+
+export async function updateTeam(id: string, data: TeamsRecord) {
+    await pb.collection('teams').update(id, data)
 }
 
 export async function deleteTeam(id: string) {
