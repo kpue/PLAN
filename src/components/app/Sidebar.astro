@@ -62,7 +62,9 @@ const p_classes =
         (projects.length === 0 ? " rounded-b-lg " : "") +
         (Astro.url.pathname === "/app/dashboard" &&
           " font-bold !bg-blue-800 ") +
-        (Astro.params.project_id && " !bg-white text-black border ")}
+        (Astro.params.project_id &&
+          !team_id &&
+          " !bg-white text-black border ")}
     >
       Your projects
     </a>
@@ -105,6 +107,9 @@ const p_classes =
                 (teams_projects[team.id].length === 0 ? " rounded-b-lg " : "") +
                 (Astro.url.pathname.startsWith(`/app/team/${team.id}`)
                   ? " !bg-blue-800 font-bold "
+                  : "") +
+                (Astro.params.project_id && team_id === team.id
+                  ? " !bg-white dark:!text-black border"
                   : "") +
                 "flex items-center justify-between"
               }
