@@ -1,5 +1,6 @@
 import PocketBase from 'pocketbase'
 import type { 
+    InvitesResponse,
     ProjectsRecord,
     ProjectsResponse,
     TasksRecord,
@@ -226,4 +227,21 @@ export async function getMembersOfTeam(team_id: string) {
     })
 
     return team.expand?.members
+}
+
+export async function addInvite(team_id: string, email: string) {
+    await pb.collection('invites').create({
+        team: team_id,
+        email,
+    })
+}
+
+export async function getInvitesForTeam(team_id: string) {
+    const invites: InvitesResponse[] = await pb
+    .collection('invites')
+    .getFullList({
+        filter: `team = "${team_id}"`
+    })
+
+    return invites
 }
