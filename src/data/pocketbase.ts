@@ -25,12 +25,20 @@ export async function getProject(id: string) {
     return project
 }
 
-export async function getProjects() {
+export async function getProjects({team_id}: {team_id?:string}) {
+    const options = {filter: 'team = ""'}
+
+    if(team_id) {
+        options.filter = `team = "${team_id as string}"`
+    }
+
     const projects = await pb
     .collection('projects')
-    .getFullList()
+    .getFullList(options)
 
-    return projects.sort((a, b) => getStatus(a) - getStatus(b))
+    return projects.sort(
+        (a, b) => getStatus(a) - getStatus(b)
+    )
 }
 
 export async function addProject(name: string, team_id?: string) {

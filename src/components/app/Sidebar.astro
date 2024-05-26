@@ -2,7 +2,7 @@
 import { getProjects, getTeams } from "@data/pocketbase"
 import { getUserUsername } from "@lib/auth"
 
-const projects = await getProjects()
+const projects = await getProjects({})
 const teams = await getTeams()
 
 const p_classes =
