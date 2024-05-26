@@ -4,8 +4,9 @@ import IconDelete from "@components/app/icons/IconDelete.astro"
 import HamburgerMenuButton from "@components/app/HamburgerMenuButton.astro"
 import AddNewProjectCard from "@components/app/projects/AddNewProjectCard.astro"
 import TasksList from "@components/app/tasks/TasksList.astro"
+import ProjectCard from "@components/app/projects/ProjectCard.astro"
 
-import { getTeam, userIsTeamOwner } from "@data/pocketbase"
+import { getTeam, userIsTeamOwner, getProjects } from "@data/pocketbase"
 
 const { team_id = "" } = Astro.params
 
@@ -17,6 +18,7 @@ try {
 }
 
 const is_owner = await userIsTeamOwner(team_id)
+const projects = await getProjects({ team_id })
 ---
 
 <Layout title="PLAN">
@@ -69,6 +71,11 @@ const is_owner = await userIsTeamOwner(team_id)
             <TasksList starred={true} team_id={team_id} />
           </div>
           <div class="space-y-6">
+            <ul class="grid gap-6 sm:grid-cols-2">
+              {projects.map((project) => (
+                <ProjectCard project={project} />
+              ))}
+            </ul>
             <AddNewProjectCard team_id={team_id} />
           </div>
         </>
