@@ -5,11 +5,16 @@ import type {
     TasksRecord,
     TasksResponse,
     TeamsRecord,
+    TeamsResponse,
     TypedPocketBase,
+    UsersResponse,
 } from '@src/data/pocketbase-types'
 
 type TexpandProject = {
     project?: ProjectsResponse
+}
+type TexpandMembers = {
+    members: UsersResponse[]
 }
 
 export const pb = new PocketBase(import.meta.env.POCKETBASE_URL || process.env.POCKETBASE_URL) as TypedPocketBase
@@ -203,4 +208,22 @@ export async function userIsTeamOwner(team_id: string) {
     }
 
     return false
+}
+
+export async function getOwnerOfTeam(team: TeamsResponse) {
+    const user: UsersResponse = await pb
+    .collection('users')
+    .getOne(team.created_by)
+
+    return user
+}
+
+export async function getMembersOfTeam(team_id: string) {
+    const team: TeamsResponse<TexpandMembers> = await pb
+    .collection('teams')
+    .getOne(team_id, {
+        expand: 'members'
+    })
+
+    return team.expand?.members
 }
