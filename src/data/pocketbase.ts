@@ -127,12 +127,15 @@ function getStatus(project: ProjectsResponse) {
     }
 }
 
-export async function getStarredTasks(): Promise<TasksResponse<TexpandProject>[]> {
+export async function getStarredTasks({team_id = null,}): Promise<TasksResponse<TexpandProject>[]> {
     const options = {
         sort: '-starred_on',
         filter: 'starred = true && completed = false',
         expand: 'project',
     }
+
+    options.filter += ` && project.team = "${team_id ?? ''}"`
+
     let tasks: TasksResponse<TexpandProject>[] = []
     tasks = await pb.collection('tasks').getFullList(options)
 

@@ -7,11 +7,11 @@ import TaskImages from "@components/app/tasks/TaskImages.astro"
 
 import { getTasks, getStarredTasks } from "@data/pocketbase"
 
-const { project_id, done, starred } = Astro.props
+const { project_id, done, starred, team_id } = Astro.props
 
 let tasks = null
 if (starred) {
-  tasks = await getStarredTasks()
+  tasks = await getStarredTasks({ team_id })
 } else {
   tasks = await getTasks({ project_id, done })
 }
