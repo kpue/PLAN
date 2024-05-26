@@ -3,6 +3,7 @@ import Layout from "@layouts/LayoutApp.astro"
 import HamburgerMenuButton from "@components/app/HamburgerMenuButton.astro"
 import TeamMembers from "@components/app/teams/TeamMembers.astro"
 import InviteNewTeamMember from "@components/app/teams/InviteNewTeamMember.astro"
+import InvitesList from "@components/app/teams/InvitesList.astro"
 
 import { getTeam } from "@data/pocketbase"
 
@@ -42,6 +43,7 @@ if (!team) {
     class="pb-10 pl-4 mx-auto text-white max-w-7xl sm:pl-6 lg:pl-8 p-10 mt-10 rounded-lg shadow dark:text-white bg-zinc-100 dark:bg-zinc-800"
   >
     <TeamMembers team={team} />
+    <InvitesList team={team} />
     <InviteNewTeamMember team={team} />
   </div>
 </Layout>
