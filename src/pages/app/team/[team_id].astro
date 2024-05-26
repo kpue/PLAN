@@ -2,6 +2,8 @@
 import Layout from "@layouts/LayoutApp.astro"
 import IconDelete from "@components/app/icons/IconDelete.astro"
 import HamburgerMenuButton from "@components/app/HamburgerMenuButton.astro"
+import AddNewProjectCard from "@components/app/projects/AddNewProjectCard.astro"
+import TasksList from "@components/app/tasks/TasksList.astro"
 
 import { getTeam, userIsTeamOwner } from "@data/pocketbase"
 
@@ -56,6 +58,18 @@ const is_owner = await userIsTeamOwner(team_id)
                 Delete team
               </button>
             </div>
+          </div>
+        </>
+      )
+    }
+    {
+      team.status === "active" && (
+        <>
+          <div id="starred-tasks-list">
+            <TasksList starred={true} team_id={team_id} />
+          </div>
+          <div class="space-y-6">
+            <AddNewProjectCard team_id={team_id} />
           </div>
         </>
       )

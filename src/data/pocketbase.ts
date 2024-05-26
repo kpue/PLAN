@@ -33,13 +33,14 @@ export async function getProjects() {
     return projects.sort((a, b) => getStatus(a) - getStatus(b))
 }
 
-export async function addProject(name: string) {
+export async function addProject(name: string, team_id?: string) {
     const newProject = await pb
     .collection('projects')
     .create({
         name,
         created_by: pb.authStore.model?.id,
         status: 'not started',
+        team: team_id,
     })
 
     return newProject
