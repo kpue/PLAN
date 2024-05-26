@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({
     const team_id = params.team_id
 
     const team_page_url = new URL(
-        '/app/api/stripe/callback/success' + team_id,
+        '/app/api/stripe/callback/success/' + team_id,
         request.url
     ).toString()
 
