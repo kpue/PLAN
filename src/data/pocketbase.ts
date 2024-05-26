@@ -17,6 +17,9 @@ type TexpandProject = {
 type TexpandMembers = {
     members: UsersResponse[]
 }
+type TexpandTeam = {
+    team: TeamsResponse
+}
 
 export const pb = new PocketBase(import.meta.env.POCKETBASE_URL || process.env.POCKETBASE_URL) as TypedPocketBase
 
@@ -234,6 +237,19 @@ export async function addInvite(team_id: string, email: string) {
         team: team_id,
         email,
     })
+}
+
+export async function getYourInvites() {
+    const options = {
+        filter: `email = "${pb.authStore.model?.email}"`,
+        expand: 'team',
+    }
+
+    const invites: InvitesResponse<TexpandTeam>[] = await pb
+    .collection('invites')
+    .getFullList(options)
+
+    return invites
 }
 
 export async function getInvitesForTeam(team_id: string) {
