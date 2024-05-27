@@ -71,6 +71,18 @@ export async function deleteProject(id: string) {
     await pb.collection('projects').delete(id)
 }
 
+export async function getTask(id: string) {
+    const options = {
+        expand: 'project',
+    }
+
+    const task: TasksResponse<TexpandProject> = await pb
+    .collection('tasks')
+    .getOne(id, options)
+
+    return task
+}
+
 export async function getTasks({
     project_id = null,
     done = false,
