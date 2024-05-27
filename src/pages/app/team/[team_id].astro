@@ -37,6 +37,35 @@ const projects = await getProjects({ team_id })
     </div>
 
     {
+      team.status === "freezed" && (
+        <>
+          <div class="p-10 mt-0 text-white rounded-lg shadow bg-zinc-800">
+            Your team is frozen as the subscription has been cancelled.
+            {is_owner && (
+              <p>
+                <a
+                  href-post={`/app/api/team/${team_id}/activate`}
+                  hx-swap="none"
+                  class="underline cursor-pointer"
+                >
+                  Reactivate the team now
+                </a>{" "}
+                to access the projects
+              </p>
+            )}
+          </div>
+          <div class="space-y-6">
+            <ul class="grid gap-6 sm:grid-cols-2">
+              {projects.map((project) => (
+                <ProjectCard project={project} freezed={true} />
+              ))}
+            </ul>
+          </div>
+        </>
+      )
+    }
+
+    {
       team.status === "inactive" && is_owner && (
         <>
           <div class="p-10 mt-0 text-white rounded-lg shadow bg-zinc-800">
