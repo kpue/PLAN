@@ -1,0 +1,30 @@
+---
+import LayoutApp from "@layouts/LayoutApp.astro"
+import HamburgerMenuButton from "@components/app/HamburgerMenuButton.astro"
+import ActivitiesList from "@components/app/ActivitiesList.astro"
+
+import { getActivities } from "@data/pocketbase"
+
+const activities = await getActivities()
+---
+
+<LayoutApp title="Activities">
+  <div class="mx-auto text-zinc-800 dark:text-white space-y-6 max-w-7xl">
+    <div
+      class="rounded-lg bg-zinc-900 px-5 py-4 sm:py-2.5 text-xl sm:text-2xl md:text-3xl text-white uppercase text-center font-extrabold font-rounded"
+    >
+      <div class="sm:hidden">
+        <HamburgerMenuButton />
+      </div>
+      Activities
+    </div>
+
+    <div class="mx-auto max-w-7xl">
+      <div class="rounded-lg shadow p-6 bg-zinc-100 dark:bg-zinc-800">
+        <div id="activities">
+          <ActivitiesList activities={activities} />
+        </div>
+      </div>
+    </div>
+  </div>
+</LayoutApp>
