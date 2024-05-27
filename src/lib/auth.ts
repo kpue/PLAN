@@ -46,6 +46,18 @@ export async function getUserUsername(request: Request) {
     return pb.authStore.model?.username
 }
 
+export function setUserUsername(username: string) {
+    pb.authStore.model!.username = username
+}
+
+export async function updateOwnUsername(username: string) {
+    await pb
+    .collection('users')
+    .update(pb.authStore.model?.id, {
+        username: username
+    })
+}
+
 export async function loginUser(email: string, password: string) {
     return await pb.collection('users').authWithPassword(email,password)
 }
@@ -82,6 +94,10 @@ export function setCookieAndRedirectToDashboard() {
             }),
         },
     })
+}
+
+export function getCookie() {
+    return pb.authStore.exportToCookie({secure: false})
 }
 
 export async function sendResetPasswordLink(email: string) {
