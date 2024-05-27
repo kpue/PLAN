@@ -261,3 +261,21 @@ export async function getInvitesForTeam(team_id: string) {
 
     return invites
 }
+
+export async function getInvite(id:string) {
+    const team: InvitesResponse = await pb
+    .collection('invites')
+    .getOne(id)
+
+    return team
+}
+
+export async function deleteInvite(id: string) {
+    await pb.collection('invites').delete(id)
+}
+
+export async function addMember(team_id: string, person_id: string) {
+    await pb.collection('teams').update(team_id, {
+        'members+': person_id,
+    })
+}
