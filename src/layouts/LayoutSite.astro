@@ -36,6 +36,19 @@ const { title = "PLAN" } = Astro.props
       media="(prefers-color-scheme: dark)"
     />
     <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
+
+    <script is:inline>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .catch((error) => {
+              console.log("Service Worker registration failed: ", error)
+            })
+        })
+      }
+    </script>
+
     <title>{title}</title>
   </head>
 </html>
