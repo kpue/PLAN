@@ -24,8 +24,20 @@ const { title = "PLAN" } = Astro.props
       object-src 'none';
       "
     />
-    <title></title>{title}</head
-  >
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="theme-color"
+      content="#fff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#000"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
+    <title>{title}</title>
+  </head>
 </html>
 <body class="dark:bg-black dark:text-white">
   <div class="max-w-5xl px-4 py-4 mx-auto">
