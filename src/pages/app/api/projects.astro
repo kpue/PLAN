@@ -1,6 +1,7 @@
 ---
 export const partial = true
 
+import PersoanlAndTeamsProjectsList from "@components/app/sidebar/PersoanlAndTeamsProjectsList.astro"
 import SingleProject from "@components/app/projects/SingleProject.astro"
 
 import { addProject, addActivity } from "@data/pocketbase"
@@ -35,4 +36,8 @@ if (Astro.request.method == "POST") {
 
 <div id="slot" hx-swap-oob="true">
   <SingleProject project={project} />
+</div>
+
+<div id="teams-and-projects-list" hx-swap-oob="true">
+  <PersoanlAndTeamsProjectsList + active_project_id={project?.id} + />
 </div>

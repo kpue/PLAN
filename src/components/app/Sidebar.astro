@@ -1,8 +1,9 @@
 ---
-import { getProjects, getTeams, getProject } from "@data/pocketbase"
-import { getUserUsername } from "@lib/auth"
+import { getProjects, getTeams, getProject } from '@data/pocketbase'
+import { getUserUsername } from '@lib/auth'
+import PersonalAndTeamsProjectsList from "@components/app/sidebar/PersoanlAndTeamsProjectsList.astro"
 
-import type { ProjectsResponse } from "@data/pocketbase-types"
+import type { ProjectsResponse } from '@data/pocketbase-types'
 
 const projects = await getProjects({})
 const teams = await getTeams()
@@ -12,168 +13,74 @@ const teams_projects: {
 } = {}
 
 await Promise.all(
-  teams.map(async (team) => {
+  teams.map(async team => {
     teams_projects[team.id] = await getProjects({
       team_id: team.id,
     })
   })
 )
 
-let team_id = ""
+let team_id = ''
 if (Astro.params.project_id) {
   const project = await getProject(Astro.params.project_id)
   team_id = project.team
 }
 
 const p_classes =
-  "block bg-zinc-100 dark:bg-zinc-900 py-2 pl-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-800 border dark:border-0 dark:border-b border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-white"
+  'block bg-zinc-100 dark:bg-zinc-900 py-2 pl-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-800 border dark:border-0 dark:border-b border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-white '
 ---
 
-<aside class="text-white">
-  <div class="mb-6 rounded-lg bg-zinc-800">
+<aside class='text-white'>
+  <div class='mb-6 rounded-lg bg-zinc-800'>
     <div
-      class="rounded-lg bg-zinc-900 px-5 py-4 sm:py-2.5 text-xl sm:text-2xl md:text-3xl text-white uppercase text-center font-extrabold font-rounded"
-    >
+      class='rounded-lg bg-zinc-900 px-5 py-4 sm:py-2.5 text-xl sm:text-2xl md:text-3xl text-white uppercase text-center font-extrabold font-rounded'>
       <button
-        aria-label="Hide sidebar"
-        @click.prevent="showMenu = false"
-        class="sm:hidden absolute flex justify-between float-left py-2 pl-2 -mt-1 text-white bg-blue-500 rounded-lg cursor-pointer"
-      >
+        aria-label='Hide sidebar'
+        @click.prevent='showMenu = false'
+        class='sm:hidden absolute flex justify-between float-left py-2 pl-2 -mt-1 text-white bg-blue-500 rounded-lg cursor-pointer'>
         <svg
-          class="w-5 h-5 mr-2"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path d="M6 18L18 6M6 6l12 12"></path>
+          class='w-5 h-5 mr-2'
+          fill='none'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          stroke-width='2'
+          viewBox='0 0 24 24'
+          stroke='currentColor'>
+          <path d='M6 18L18 6M6 6l12 12'></path>
         </svg>
       </button>
-      <a href="/app/dashboard">PLAN</a>
+      <a href='/app/dashboard'>SECRETPLAN</a>
     </div>
   </div>
 
-  <div class="mb-6 rounded-lg bg-zinc-800">
-    <a
-      href="/app/dashboard"
-      class={"block bg-zinc-900 py-2 pl-2 cursor-pointer hover:bg-zinc-800 border-b border-zinc-800 uppercase border-t-zinc-400 font-black rounded-t-lg" +
-        (projects.length === 0 ? " rounded-b-lg " : "") +
-        (Astro.url.pathname === "/app/dashboard" &&
-          " font-bold !bg-blue-800 ") +
-        (Astro.params.project_id &&
-          !team_id &&
-          " !bg-white text-black border ")}
-    >
-      Your projects
-    </a>
-    <div>
-      {
-        projects.map((project, _index) => {
-          return (
-            <a
-              href={`/app/project/${project.id}`}
-              class={
-                "lock bg-zinc-900 py-2 pl-2 cursor-pointer hover:bg-zinc-800 border-b border-zinc-800" +
-                (Astro.url.pathname === `/app/project/${project.id}`
-                  ? " font-bold !bg-blue-800"
-                  : "") +
-                " flex justify-between"
-              }
-            >
-              <span>{project.name}</span>
-              <span class="mr-2">
-                {Astro.url.pathname === `/app/project/${project.id}` && (
-                  <span>▶︎</span>
-                )}
-              </span>
-            </a>
-          )
-        })
-      }
-    </div>
+  <div id='teams-and-projects-list'>
+    <PersonalAndTeamsProjectsList active_project_id={Astro.params.project_id} />
   </div>
-
-  {
-    teams.length > 0 &&
-      teams.map((team) => {
-        return (
-          <div class="mb-6 rounded-lg bg-zinc-800">
-            <a
-              href={`/app/team/${team.id}`}
-              class={
-                `${p_classes} uppercase rounded-t-lg font-black ` +
-                (teams_projects[team.id].length === 0 ? " rounded-b-lg " : "") +
-                (Astro.url.pathname.startsWith(`/app/team/${team.id}`)
-                  ? " !bg-blue-800 font-bold "
-                  : "") +
-                (Astro.params.project_id && team_id === team.id
-                  ? " !bg-white dark:!text-black border"
-                  : "") +
-                "flex items-center justify-between"
-              }
-            >
-              {team.name}
-              <span class="p-1 pr-1 mr-2 text-sm font-bold bg-white border rounded-md text-zinc-800">
-                team
-              </span>
-            </a>
-            <div class="rounded-b-lg">
-              {teams_projects[team.id].map((project, index) => {
-                return (
-                  <a
-                    href={`/app/project/${project.id}`}
-                    class={
-                      p_classes +
-                      (Astro.url.pathname === `/app/project/${project.id}`
-                        ? " font-bold !bg-blue-800 !text-white"
-                        : "") +
-                      " flex justify-between"
-                    }
-                  >
-                    <span>{project.name}</span>
-                    <span class="mr-2">
-                      {Astro.url.pathname === `/app/project/${project.id}` && (
-                        <span>▶︎</span>
-                      )}
-                    </span>
-                  </a>
-                )
-              })}
-            </div>
-          </div>
-        )
-      })
-  }
 
   <button
-    class=`${p_classes} rounded-t-lg w-full text-left outline-none`
-    hx-get="/app/modals/team/new"
-    hx-target="dialog"
-  >
+    class={p_classes + ' rounded-t-lg w-full text-left outline-none'}
+    hx-get=`/app/modals/team/new`
+    hx-target='dialog'>
     + Create new team
   </button>
 
   <a
     class={p_classes +
-      (Astro.url.pathname === "/app/activities" &&
-        " font-bold !bg-blue-600 !text-white")}
-    href="/app/activities"
-  >
+      (Astro.url.pathname === '/app/activities' &&
+        ' font-bold !bg-blue-600 !text-white')}
+    href='/app/activities'>
     Activities
   </a>
 
   <a
     class={p_classes +
-      (Astro.url.pathname === "/app/settings" &&
-        " font-bold !bg-blue-600 !text-white")}
-    href="/app/settings"
-  >
+      (Astro.url.pathname === '/app/settings' &&
+        ' font-bold !bg-blue-600 !text-white')}
+    href='/app/settings'>
     Settings
   </a>
 
-  <a class=`${p_classes} rounded-t-lg w-full text-left` hx-post="/logout">
+  <a class={p_classes + ' rounded-b-lg w-full text-left'} hx-post='/logout'>
     Logout @{getUserUsername(Astro.request)}
   </a>
 </aside>
